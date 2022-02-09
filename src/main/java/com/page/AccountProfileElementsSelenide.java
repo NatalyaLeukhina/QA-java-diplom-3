@@ -4,6 +4,7 @@ package com.page;
 import com.UserOperations;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -19,6 +20,7 @@ public class AccountProfileElementsSelenide {
     public static SelenideElement exitButton;
 
     //нажать на кнопку "Выход"
+    @Step
     public static LoginPageElementsSelenide clickExitButton() {
         exitButton.shouldBe(Condition.enabled).click();
         LoginPageElementsSelenide.enterHeaderVisible();
@@ -26,6 +28,7 @@ public class AccountProfileElementsSelenide {
     }
 
     //выход из личного кабинета
+    @Step
     public static AccountProfileElementsSelenide successExit(UserOperations userOperations) {
         open(HomePageElementsSelenide.homeUrl, HomePageElementsSelenide.class).clickLogInAccountButton();
         LoginPageElementsSelenide.successLogin(userOperations);

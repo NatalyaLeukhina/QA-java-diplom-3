@@ -3,6 +3,7 @@ package com.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -38,6 +39,7 @@ public class RegisterElementsSelenide {
 
 
     //нажать на ссылку "Войти" на странице регистрации
+    @Step
     public LoginPageElementsSelenide clickLogInButton() {
         loginLink.click();
         return page(LoginPageElementsSelenide.class);
@@ -51,6 +53,7 @@ public class RegisterElementsSelenide {
 
 
     //регистрация пользователя
+    @Step
     public LoginPageElementsSelenide successRegistration() {
         (nameEmailAndPasswordFields.get(0)).sendKeys(RandomStringUtils.randomAlphabetic(10));
         (nameEmailAndPasswordFields.get(1)).sendKeys(RandomStringUtils.randomAlphabetic(10) + EMAIL_POSTFIX);
@@ -61,6 +64,7 @@ public class RegisterElementsSelenide {
     }
 
     //регистрация с невалидным паролем
+    @Step
     public RegisterElementsSelenide invalidRegistration(){
         (nameEmailAndPasswordFields.get(0)).sendKeys(RandomStringUtils.randomAlphabetic(10));
         (nameEmailAndPasswordFields.get(1)).sendKeys(RandomStringUtils.randomAlphabetic(10) + EMAIL_POSTFIX);

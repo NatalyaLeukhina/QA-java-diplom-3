@@ -18,6 +18,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @RunWith(Parameterized.class)
 public class RegistrationTest {
+
     public String browser;
 
     public RegistrationTest(String browser) {
@@ -29,7 +30,7 @@ public class RegistrationTest {
     public static Object[][] setBrowser() {
         return new Object[][] {
                 {"chrome"},
-                {"yandex"},
+               {"yandex"},
 
         };
 

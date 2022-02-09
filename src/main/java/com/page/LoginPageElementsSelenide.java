@@ -5,6 +5,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -35,6 +36,7 @@ public class LoginPageElementsSelenide {
     public static SelenideElement enterHeader;
 
     //авторизация пользователя
+    @Step
     public static HomePageElementsSelenide successLogin(UserOperations userOperations) {
         List<String> userData = new ArrayList<>(userOperations.register().values());
         String email = userData.get(2);

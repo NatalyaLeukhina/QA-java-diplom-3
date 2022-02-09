@@ -4,9 +4,12 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+
+
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
@@ -40,13 +43,26 @@ public class HomePageElementsSelenide {
     @FindBy(how = How.XPATH, using = ".//span[text()='Булки']")
     public SelenideElement breadSection;
 
+    //заголовок "Булки" в окне выбора ингридиентов
+    @FindBy(how = How.XPATH, using = ".//h2[text()='Булки']")
+    public SelenideElement breadHeader;
+
+
     //раздел «Соусы»
     @FindBy(how = How.XPATH, using = ".//span[text()='Соусы']")
     public SelenideElement saucesSection;
 
+    //заголовок "Соусы" в окне выбора ингридиентов
+    @FindBy(how = How.XPATH, using = ".//h2[text()='Соусы']")
+    public SelenideElement saucesHeader;
+
     //раздел «Начинки»
     @FindBy(how = How.XPATH, using = ".//span[text()='Начинки']")
     public SelenideElement fillingSection;
+
+    //заголовок "Начинки" в окне выбора ингридиентов
+    @FindBy(how = How.XPATH, using = ".//h2[text()='Начинки']")
+    public SelenideElement fillingHeader;
 
 
     //кнопка "Оформить заказ"
@@ -55,6 +71,7 @@ public class HomePageElementsSelenide {
 
 
     //открыть главную страницу
+    @Step
     public static void openHomePage() {
         Configuration.browser = "chrome";
         System.setProperty("selenide.browser", "chrome");
@@ -62,76 +79,78 @@ public class HomePageElementsSelenide {
     }
 
 
+
         //открыть страницу в разных браузерах
+        @Step
         public static void openInDifferentBrowsers(String browser) {
         if (browser.equals("yandex")) {
             System.setProperty("webdriver.chrome.driver", "src/resources/yandexdriver.exe");
+            Configuration.startMaximized = true;
         } else if (browser.equals("chrome")) {
             System.setProperty("selenide.browser", "chrome");
+            Configuration.startMaximized = true;
         }
         }
 
         //нажать на кнопку Личный кабинет
+        @Step
     public static void clickPersonalAccountButton() {
 
         personalAccountButton.click();
     }
 
     //нажать на кнопку "Войти в аккаунт"
+    @Step
     public static LoginPageElementsSelenide clickLogInAccountButton() {
         logInAccountButton.click();
         return page(LoginPageElementsSelenide.class);
     }
 
     //нажать на кнопку Конструктор
+    @Step
     public static void clickDesignerButton() {
         designerButton.click();
 
     }
 
     //нажать на логотип Stellar Burgers
-    public static void clickstellarBurgersLogo() {
+    @Step
+    public static void clickStellarBurgersLogo() {
         stellarBurgersLogo.click();
     }
 
     //переход к разделу "Булки"
-    public HomePageElementsSelenide clickBreadSection() {
+    @Step
+    public boolean clickBreadSection() {
+        saucesSection.click();
+        saucesHeader.shouldHave(Condition.exactText("Соусы"));
         breadSection.click();
-        ingredientsSection.get(0).shouldBe(Condition.visible);
-        return this;
+        breadHeader.shouldHave(Condition.exactText("Булки"));
+        return breadHeader.exists();
     }
 
-    //видимость раздела "Булки"
-    public boolean breadSectionVisible() {
-        return ingredientsSection.get(0).isDisplayed();
-    }
 
     //переход к разделу "Соусы"
-    public HomePageElementsSelenide clickSaucesSection() {
+    @Step
+    public boolean clickSaucesSection() {
         saucesSection.click();
-        ingredientsSection.get(1).shouldBe(Condition.visible);
-        return this;
+        saucesHeader.shouldHave(Condition.exactText("Соусы"));
+        return saucesHeader.exists();
+        //return this;
     }
 
-    //видимость раздела "Соусы"
-    public boolean saucesSectionVisible() {
-        return ingredientsSection.get(1).isDisplayed();
-    }
 
     //переход к разделу "Начинки"
-    public HomePageElementsSelenide clickFillingSection() {
+    @Step
+    public boolean clickFillingSection() {
         fillingSection.click();
-        ingredientsSection.get(1).shouldBe(Condition.visible);
-        return this;
-    }
-
-    //видимость раздела "Начинки"
-    public boolean fillingSectionVisible() {
-        return ingredientsSection.get(2).isDisplayed();
+        fillingHeader.shouldHave(Condition.exactText("Начинки"));
+        return fillingHeader.exists();
     }
 
 
     //нажать на кнопку "Войти" в личном кабинете
+    @Step
     public static LoginPageElementsSelenide clickLogInPersonalAccount() {
         clickPersonalAccountButton();
         return page(LoginPageElementsSelenide.class);
@@ -139,6 +158,7 @@ public class HomePageElementsSelenide {
 
 
     //видимость кнопки "Оформить заказ"
+    @Step
     public boolean createOrderButtonVisible() {
         return createOrderButton.isDisplayed();
     }

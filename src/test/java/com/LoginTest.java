@@ -1,5 +1,6 @@
 package com;
 
+import com.codeborne.selenide.Configuration;
 import com.page.ForgotPasswordElementsSelenide;
 import com.page.HomePageElementsSelenide;
 import com.page.LoginPageElementsSelenide;
@@ -12,12 +13,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 
 @RunWith(Parameterized.class)
 public class LoginTest {
+
+
     private UserOperations userOperations;
     public String browser;
 
@@ -38,13 +40,15 @@ public class LoginTest {
 
         @Before
         public void setUp() {
+            HomePageElementsSelenide.openInDifferentBrowsers(browser);
             userOperations = new UserOperations();
+            Configuration.startMaximized = true;
         }
 
         @After
         public void tearDown() {
             userOperations.delete();
-            getWebDriver().close();
+           // getWebDriver().close();
         }
 
         @Test
