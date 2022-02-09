@@ -136,7 +136,7 @@ public class HomePageElementsSelenide {
         saucesSection.click();
         saucesHeader.shouldHave(Condition.exactText("Соусы"));
         return saucesHeader.exists();
-        //return this;
+
     }
 
 
