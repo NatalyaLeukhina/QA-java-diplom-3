@@ -2,14 +2,10 @@ package com.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
-
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
@@ -26,7 +22,6 @@ public class HomePageElementsSelenide {
     @FindBy(how = How.XPATH, using = ".//p[text()='Личный Кабинет']")
     public static SelenideElement personalAccountButton;
 
-
     //кнопка «Конструктор»
     @FindBy(how = How.XPATH, using = ".//p[text()='Конструктор']")
     public static SelenideElement designerButton;
@@ -35,34 +30,23 @@ public class HomePageElementsSelenide {
     @FindBy(how = How.CLASS_NAME, using = "AppHeader_header__logo__2D0X2")
     public static SelenideElement stellarBurgersLogo;
 
-    //раздел с ингридиентами
-    @FindAll({@FindBy(how = How.XPATH, using = ".//ul[@class='BurgerIngredients_ingredients__list__2A-mT']")})
-    public static ElementsCollection ingredientsSection;
-
     //раздел «Булки»
-    @FindBy(how = How.XPATH, using = ".//span[text()='Булки']")
-    public SelenideElement breadSection;
-
-    //заголовок "Булки" в окне выбора ингридиентов
-    @FindBy(how = How.XPATH, using = ".//h2[text()='Булки']")
-    public SelenideElement breadHeader;
+    @FindBy(how = How.XPATH, using = "//span[text()='Булки']")
+    public static SelenideElement breadSection;
 
 
     //раздел «Соусы»
     @FindBy(how = How.XPATH, using = ".//span[text()='Соусы']")
-    public SelenideElement saucesSection;
+    public static SelenideElement saucesSection;
 
-    //заголовок "Соусы" в окне выбора ингридиентов
-    @FindBy(how = How.XPATH, using = ".//h2[text()='Соусы']")
-    public SelenideElement saucesHeader;
 
     //раздел «Начинки»
-    @FindBy(how = How.XPATH, using = ".//span[text()='Начинки']")
-    public SelenideElement fillingSection;
+    @FindBy(how = How.XPATH, using = "//span[contains(text(),'Начинки')]")
+    public static SelenideElement fillingSection;
 
-    //заголовок "Начинки" в окне выбора ингридиентов
-    @FindBy(how = How.XPATH, using = ".//h2[text()='Начинки']")
-    public SelenideElement fillingHeader;
+    // Активный таб ингридиентов
+    @FindBy(xpath = "//div[@class='tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']")
+    public static SelenideElement currentTabIngredients;
 
 
     //кнопка "Оформить заказ"
@@ -70,87 +54,69 @@ public class HomePageElementsSelenide {
     public SelenideElement createOrderButton;
 
 
-    //открыть главную страницу
-    @Step
+    @Step ("Открыть главную страницу")
     public static void openHomePage() {
         Configuration.browser = "chrome";
         System.setProperty("selenide.browser", "chrome");
-        HomePageElementsSelenide openHome = open("https://stellarburgers.nomoreparties.site/", HomePageElementsSelenide.class);
+        open("https://stellarburgers.nomoreparties.site/", HomePageElementsSelenide.class);
     }
 
 
 
-        //открыть страницу в разных браузерах
-        @Step
-        public static void openInDifferentBrowsers(String browser) {
-        if (browser.equals("yandex")) {
-            System.setProperty("webdriver.chrome.driver", "src/resources/yandexdriver.exe");
-            Configuration.startMaximized = true;
-        } else if (browser.equals("chrome")) {
-            System.setProperty("selenide.browser", "chrome");
-            Configuration.startMaximized = true;
-        }
-        }
-
-        //нажать на кнопку Личный кабинет
-        @Step
+    @Step("Нажать на кнопку Личный кабинет")
     public static void clickPersonalAccountButton() {
 
         personalAccountButton.click();
     }
 
-    //нажать на кнопку "Войти в аккаунт"
-    @Step
+    @Step("Нажать на кнопку Войти в аккаунт")
     public static LoginPageElementsSelenide clickLogInAccountButton() {
         logInAccountButton.click();
         return page(LoginPageElementsSelenide.class);
     }
 
-    //нажать на кнопку Конструктор
-    @Step
+
+    @Step("Нажать на кнопку Конструктор")
     public static void clickDesignerButton() {
         designerButton.click();
 
     }
 
-    //нажать на логотип Stellar Burgers
-    @Step
+
+    @Step("Нажать на логотип Stellar Burgers")
     public static void clickStellarBurgersLogo() {
         stellarBurgersLogo.click();
     }
 
-    //переход к разделу "Булки"
-    @Step
-    public boolean clickBreadSection() {
-        saucesSection.click();
-        saucesHeader.shouldHave(Condition.exactText("Соусы"));
+
+    @Step("переход к разделу Булки")
+    public static String clickBreadSection() {
         breadSection.click();
-        breadHeader.shouldHave(Condition.exactText("Булки"));
-        return breadHeader.exists();
-    }
+        breadSection.shouldHave(Condition.exactText("Булки"));
+        return breadSection.getText();
+   }
 
 
-    //переход к разделу "Соусы"
-    @Step
-    public boolean clickSaucesSection() {
+    @Step("переход к разделу Соусы")
+    public static String clickSaucesSection() {
         saucesSection.click();
-        saucesHeader.shouldHave(Condition.exactText("Соусы"));
-        return saucesHeader.exists();
+        saucesSection.shouldHave(Condition.exactText("Соусы"));
+        return saucesSection.getText();
 
     }
 
 
-    //переход к разделу "Начинки"
-    @Step
-    public boolean clickFillingSection() {
+
+    @Step("Переход к разделу Начинки")
+    public static String clickFillingSection() {
         fillingSection.click();
-        fillingHeader.shouldHave(Condition.exactText("Начинки"));
-        return fillingHeader.exists();
+        fillingSection.shouldHave(Condition.exactText("Начинки"));
+        return fillingSection.getText();
     }
 
 
-    //нажать на кнопку "Войти" в личном кабинете
-    @Step
+
+    @Step("Нажать на кнопку Войти в личном кабинете")
     public static LoginPageElementsSelenide clickLogInPersonalAccount() {
         clickPersonalAccountButton();
         return page(LoginPageElementsSelenide.class);
@@ -158,7 +124,6 @@ public class HomePageElementsSelenide {
 
 
     //видимость кнопки "Оформить заказ"
-    @Step
     public boolean createOrderButtonVisible() {
         return createOrderButton.isDisplayed();
     }

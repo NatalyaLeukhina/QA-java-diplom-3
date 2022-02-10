@@ -1,8 +1,7 @@
 package com;
 
-import com.codeborne.selenide.Configuration;
+
 import com.page.AccountProfileElementsSelenide;
-import com.page.HomePageElementsSelenide;
 import com.page.LoginPageElementsSelenide;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
@@ -14,11 +13,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-
-
 @RunWith(Parameterized.class)
-public class ExitAccountTest  {
+public class ExitAccountTest extends BaseTest {
 
 
 
@@ -42,18 +38,17 @@ public class ExitAccountTest  {
 
         @Before
         public void setUp() {
-            HomePageElementsSelenide.openInDifferentBrowsers(browser);
+            super.openInDifferentBrowsers(browser);
             userOperations = new UserOperations();
-            Configuration.startMaximized = true;
+
         }
 
 
 
         @After
         public void tearDown() {
+            super.closeDriver();
             userOperations.delete();
-
-            getWebDriver().close();
         }
 
         @Test

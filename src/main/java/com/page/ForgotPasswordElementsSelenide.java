@@ -13,8 +13,8 @@ public class ForgotPasswordElementsSelenide {
     @FindBy(how = How.XPATH, using = ".//a[text()='Войти']")
     public SelenideElement loginButton;
 
-    //нажать кнопку "Войти"
-    @Step
+
+    @Step("Нажать кнопку Войти")
     public LoginPageElementsSelenide clickLoginButton() {
         loginButton.click();
         return page(LoginPageElementsSelenide.class);

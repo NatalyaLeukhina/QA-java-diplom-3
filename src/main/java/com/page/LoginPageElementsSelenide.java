@@ -4,14 +4,11 @@ import com.UserOperations;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.codeborne.selenide.Selenide.page;
 
 public class LoginPageElementsSelenide {
@@ -35,8 +32,8 @@ public class LoginPageElementsSelenide {
     @FindBy(how = How.XPATH, using = ".//h2[text()='Вход']")
     public static SelenideElement enterHeader;
 
-    //авторизация пользователя
-    @Step
+
+    @Step("Авторизация пользователя")
     public static HomePageElementsSelenide successLogin(UserOperations userOperations) {
         List<String> userData = new ArrayList<>(userOperations.register().values());
         String email = userData.get(2);

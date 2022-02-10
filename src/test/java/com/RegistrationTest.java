@@ -1,6 +1,5 @@
 package com;
 
-import com.page.HomePageElementsSelenide;
 import com.page.LoginPageElementsSelenide;
 import com.page.RegisterElementsSelenide;
 import io.qameta.allure.Description;
@@ -13,11 +12,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 
 @RunWith(Parameterized.class)
-public class RegistrationTest {
+public class RegistrationTest extends BaseTest {
 
     public String browser;
 
@@ -38,12 +36,12 @@ public class RegistrationTest {
 
     @Before
     public void setUp() {
-        HomePageElementsSelenide.openInDifferentBrowsers(browser);
+        super.openInDifferentBrowsers(browser);
     }
 
     @After
     public void tearDown() {
-        getWebDriver().close();
+        super.closeDriver();
     }
 
     @Test

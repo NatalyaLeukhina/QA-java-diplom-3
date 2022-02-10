@@ -19,16 +19,16 @@ public class AccountProfileElementsSelenide {
     @FindBy(how = How.XPATH, using = ".//button[text()='Выход']")
     public static SelenideElement exitButton;
 
-    //нажать на кнопку "Выход"
-    @Step
+
+    @Step("Нажать на кнопку Выход")
     public static LoginPageElementsSelenide clickExitButton() {
         exitButton.shouldBe(Condition.enabled).click();
         LoginPageElementsSelenide.enterHeaderVisible();
         return page(LoginPageElementsSelenide.class);
     }
 
-    //выход из личного кабинета
-    @Step
+
+    @Step("Выход из личного кабинета")
     public static AccountProfileElementsSelenide successExit(UserOperations userOperations) {
         open(HomePageElementsSelenide.homeUrl, HomePageElementsSelenide.class).clickLogInAccountButton();
         LoginPageElementsSelenide.successLogin(userOperations);

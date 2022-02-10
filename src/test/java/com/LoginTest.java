@@ -1,10 +1,7 @@
 package com;
 
-import com.codeborne.selenide.Configuration;
-import com.page.ForgotPasswordElementsSelenide;
-import com.page.HomePageElementsSelenide;
-import com.page.LoginPageElementsSelenide;
-import com.page.RegisterElementsSelenide;
+
+import com.page.*;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
@@ -17,7 +14,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 
 @RunWith(Parameterized.class)
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
 
     private UserOperations userOperations;
@@ -40,15 +37,15 @@ public class LoginTest {
 
         @Before
         public void setUp() {
-            HomePageElementsSelenide.openInDifferentBrowsers(browser);
+            super.openInDifferentBrowsers(browser);
             userOperations = new UserOperations();
-            Configuration.startMaximized = true;
+
         }
 
         @After
         public void tearDown() {
-            userOperations.delete();
-           // getWebDriver().close();
+        super.closeDriver();
+        userOperations.delete();
         }
 
         @Test
